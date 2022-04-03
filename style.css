@@ -1,0 +1,118 @@
+@font-face {
+    font-family: "Slider";
+    src: url("SLIDER.TTF");
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  background-color: #000;
+  width: 100vw;
+  height: 100vh;
+}
+
+main#galaxy {
+  width: 100vh;
+  height: 100vh;
+  position: relative;
+  background-image: url("img/Milky Way.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: auto;
+}
+
+div.indicator {
+  width: 3vh;
+  height: 3vh;
+  position: absolute;
+}
+
+div.indicator div {
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 0 0 4px #225eb3;
+  border-radius: 1.5vh;
+  position: absolute;
+  transition: 100ms;
+}
+
+div.indicator div:hover {
+  box-shadow: inset 0 0 0 4px #f80;
+}
+
+div.indicator span {
+  width: 200px;
+  height: 40px;
+  border-top: 3px solid #225eb3;
+  border-left: 3px solid #225eb3;
+  position: absolute;
+  transform: skewX(-45deg);
+  border-top-left-radius: 25px;
+  visibility: hidden;
+  top: -4.3vh;
+  left: 4.1vh;
+  opacity: 0;
+  transition: 100ms;
+  z-index: 5;
+}
+
+div.indicator span h6 {
+  width: 175px;
+  position: absolute;
+  top: -23px;
+  left: 0px;
+  font-family: "Slider", "Montserrat", sans-serif;
+  font-size: .9em;
+  font-weight: normal;
+  color: #fff;
+  text-align: right;
+  margin: 0;
+  transform: skewX(45deg);
+}
+
+main#cluster {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  top: -100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: auto;
+  visibility: hidden;
+  opacity: 0;
+  transition: 300ms;
+  transition-property: opacity;
+}
+
+main#cluster div.indicator div {
+  transform: rotate(15deg) skew(-50deg, 20deg)
+}
+
+@keyframes zoom-transition {
+  80% {
+    transform: scale(10);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(10);
+    opacity: 0;
+  }
+}
+
+@keyframes zoom-transition-reverse {
+  0% {
+    transform: scale(10);
+    opacity: 0;
+  }
+
+  20% {
+    transform: scale(10);
+    opacity: 0;
+  }
+}
