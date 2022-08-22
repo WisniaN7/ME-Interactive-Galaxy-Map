@@ -116,12 +116,37 @@ window.addEventListener('resize', function functionName() {
 })
 
 clusterDisplay.addEventListener('mousemove', function functionName(e) {
-  let xPos = (e.clientX / window.innerWidth * 100)
-  let yPos = (e.clientY / window.innerHeight * 100)
-  clusterDisplay.style.backgroundPosition = xPos + '% ' + yPos + '%'
+  let xPos = e.clientX / window.innerWidth
+  let yPos = e.clientY / window.innerHeight
+  clusterDisplay.style.backgroundPosition = (xPos * 100) + '% ' + (yPos * 100) + '%'
 
-  for (var i = 0; i < systemIndicators.length; i++) {
-    console.log(xPos);
-    systemIndicators[i].style.left = (xPos * -0.293) + 31.7 + '%'
+  let imgOutsideViewport
+
+  let img = new Image()
+  img.src = clusterDisplay.style.backgroundImage.replace('url(', '').replace(')', '').replaceAll('"', '')
+  console.log(img.src, img.width, img.height)
+  
+  if (window.innerWidth / window.innerHeight > img.width / img.height) {
+    let heightAtPerfectRatio = img.height * window.innerWidth / img.width
+    imgOutsideViewport = heightAtPerfectRatio - window.innerHeight
+
+    systemIndicators.forEach(indicator => {
+      const orgX = indicator.getAttribute('data-org-x')
+      const orgY = indicator.getAttribute('data-org-y')
+
+      indicator.style.top = 'calc(' + orgY + '% - ' + imgOutsideViewport * yPos + 'px)'
+      indicator.style.left = orgX + '%'
+    });
+  } else {
+    let widthAtPerfectRatio = img.width * window.innerHeight / img.height
+    imgOutsideViewport = widthAtPerfectRatio - window.innerWidth
+    
+    systemIndicators.forEach(indicator => {
+      const orgX = indicator.getAttribute('data-org-x')
+      const orgY = indicator.getAttribute('data-org-y')
+
+      indicator.style.top = orgY + '%'
+      indicator.style.left = 'calc(' + orgX + '% - ' + imgOutsideViewport * xPos + 'px)'
+    });
   }
 })
